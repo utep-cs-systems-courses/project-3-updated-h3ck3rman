@@ -37,6 +37,7 @@ void fillRectangle(u_char colMin, u_char rowMin, u_char width, u_char height,
   }
 }
 
+
 /** Clear screen (fill with color)
  *  
  *  \param colorBGR The color to fill screen
@@ -48,6 +49,21 @@ void clearScreen(u_int colorBGR)
   fillRectangle(0, 0, screenWidth, screenHeight, colorBGR);
 }
 
+void drawDiamond(u_char tr, u_char tc, u_char w)
+{
+  for(u_char r = 0; r < w; r++){
+    for(u_char c = 0; c <= r; c++){
+      drawPixel(tc + c, tr + r, COLOR_RED);
+      drawPixel(tc - c, tr + r, COLOR_PINK);
+    }
+  }
+  for(u_char c = 0; c < w; c++){
+    for(u_char r = w; r <= (2*w)-c; r++){
+      drawPixel(tc + c, tr + r, COLOR_RED);
+      drawPixel(tc - c, tr + r, COLOR_PINK);
+    }
+  }
+}
 /** 5x7 font - this function draws background pixels
  *  Adapted from RobG's EduKit
  */
@@ -94,6 +110,37 @@ void drawString5x7(u_char col, u_char row, char *string,
   }
 }
 
+void drawChar8x12(u_char rrow, u_char rcol, char c, 
+     u_int fgColorBGR, u_int bgColorBGR) 
+{
+  u_char col = 0;
+  u_char row = 0;
+  u_char bit = 0x80;
+  u_char oc = c - 0x20;
+
+  lcd_setArea(rcol, rrow, rcol + 7, rrow + 11); /* relative to requested col/row */
+  while (row < 12) {
+    while (col < 8) {
+      u_int colorBGR = (font_8x12[oc][row] & bit) ? fgColorBGR : bgColorBGR;
+      lcd_writeColor(colorBGR);
+      bit >>= 1;
+      col++;
+    }
+    col = 0;
+    bit = 0x80;
+    row++;
+  }
+}
+
+void drawString8x12(u_char col, u_char row, char *string,
+		u_int fgColorBGR, u_int bgColorBGR)
+{
+  u_char cols = col;
+  while (*string) {
+    drawChar8x12(row, cols, *string++, fgColorBGR, bgColorBGR);
+    cols += 9;
+  }
+}
 
 /** Draw rectangle outline
  *  

@@ -16,8 +16,12 @@ main()
 
   clearScreen(COLOR_BLUE);
 
+  drawString8x12(20,120,"hello",COLOR_GREEN, COLOR_RED);
+
   drawString5x7(20,20, "hello", COLOR_GREEN, COLOR_RED);
 
-  fillRectangle(30,30, 60, 60, COLOR_ORANGE);
+  drawDiamond(40, 40, 20);
+
+  // fillRectangle(30,30, 60, 60, COLOR_TURQUOISE);
   
 }
