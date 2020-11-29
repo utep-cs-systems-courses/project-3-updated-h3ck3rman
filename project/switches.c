@@ -1,7 +1,6 @@
 #include <msp430.h>
 #include "switches.h"
 #include "led.h"
-#include "stateMachines.h"
 
 char button_state;
 char switch_state_down, switch_state_changed; /* effectively boolean */
@@ -45,4 +44,6 @@ switch_interrupt_handler()
   else if ((p2val & SW4) == 0){
     button_state = 4;
   }
+  switch_state_down = !switch_state_down;
+  led_update();
 }

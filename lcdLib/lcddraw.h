@@ -64,7 +64,7 @@ void drawString8x12(u_char col, u_char row, char *string,
 void drawChar8x12(u_char col, u_char row, char c, 
 		 u_int fgColorBGR, u_int bgColorBGR);
 
-void drawDiamond(u_char tr, u_char tc, u_char w);
+void drawDiamond(u_char tr, u_char tc, u_char w, u_int colorBGR1, u_int colorBGR2);
 
 void drawRectOutline(u_char colMin, u_char rowMin, u_char width, u_char height,
 		     u_int colorBGR);

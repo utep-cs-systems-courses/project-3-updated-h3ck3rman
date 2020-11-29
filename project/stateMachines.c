@@ -2,10 +2,12 @@
 #include "stateMachines.h"
 #include "led.h"
 #include "buzzer.h"
-#include "switches.h"
+#include "lcdutils.h"
+#include "lcddraw.h"
 
 char button_state;
 
+  
 void dim(){ //lights are dimmed by 50% using states
   static char state = 0;
 

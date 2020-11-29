@@ -49,18 +49,18 @@ void clearScreen(u_int colorBGR)
   fillRectangle(0, 0, screenWidth, screenHeight, colorBGR);
 }
 
-void drawDiamond(u_char tr, u_char tc, u_char w)
+void drawDiamond(u_char tr, u_char tc, u_char w, u_int colorBGR1, u_int colorBGR2)
 {
   for(u_char r = 0; r < w; r++){
     for(u_char c = 0; c <= r; c++){
-      drawPixel(tc + c, tr + r, COLOR_RED);
-      drawPixel(tc - c, tr + r, COLOR_PINK);
+      drawPixel(tc + c, tr + r, colorBGR1);
+      drawPixel(tc - c, tr + r, colorBGR2);
     }
   }
   for(u_char c = 0; c < w; c++){
     for(u_char r = w; r <= (2*w)-c; r++){
-      drawPixel(tc + c, tr + r, COLOR_RED);
-      drawPixel(tc - c, tr + r, COLOR_PINK);
+      drawPixel(tc + c, tr + r, colorBGR1);
+      drawPixel(tc - c, tr + r, colorBGR2);
     }
   }
 }
