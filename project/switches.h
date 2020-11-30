@@ -1,7 +1,7 @@
 #ifndef switches_included
 #define switches_included
 
-#define S1 BIT3
+
 #define SW1 BIT0                /* switch1 is p2.0 */
 #define SW2 BIT1                /* swich2 is p2.1 */
 #define SW3 BIT2                /* switch3 is p2.2 */

@@ -1,9 +1,5 @@
 #include <msp430.h>
 #include "switches.h"
-#include "stateMachines.h"
-#include "led.h"
-
-char button_state = 3;
 
 /* Switches on P2 */
 void

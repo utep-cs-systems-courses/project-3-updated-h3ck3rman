@@ -7,32 +7,31 @@
 #include "lcddraw.h"
 #include "stateMachines.h"
 
-#define LED_GREEN BIT0
+#define LED_RED BIT6
 
 short redrawScreen = 1;
 u_int colorBGR1 = COLOR_RED;
 u_int colorBGR2 = COLOR_PINK;
 
-char button_state;
+char button_state; 
 
 void wdt_c_handler()
 {
-  static char blink_count = 0;
-  if(++blink_count == 1){
+  static char secCount = 0;
+  if(++secCount == 1){
     main_state();
-    blink_count == 0;
+    secCount == 0;
   }
 }
-
 
 void main()
 {
   configureClocks();
   led_init();
-  lcd_init();
   buzzer_init();
+  lcd_init();
   switch_init();
-  enableWDTInterrupts();
-  or_sr(0x18);
+  enableWDTInterrupts();      /**< enable periodic interrupt */
+  or_sr(0x08);	              /**< GIE (enable interrupts) */
 }
   
