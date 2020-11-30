@@ -35,6 +35,41 @@ void ring_up(){ //frequency is raised
   }
 }
 
+void siren(){
+  static char state = 0;
+  switch(state){
+  case 0:
+    red_on = 1;
+    green_on = 1;
+    buzzer_set_period(3000);
+    state = 1;
+    break;
+  case 1:
+    red_on = 0;
+    green_on = 0;
+    buzzer_set_period(2000);
+    state = 0;
+    break;
+  }
+}
+
+void diamond_font(){
+  static char state = 0;
+  switch(state){
+  case 0:
+    drawDiamond(30,30,20,COLOR_RED,COLOR_PINK);
+    drawString8x12(40,70, "nice", COLOR_RED, COLOR_PINK);
+    drawString5x7(20,100, "nice but smaller",COLOR_RED, COLOR_PINK);
+    state++;
+    break;
+  case 1:
+    drawDiamond(30,30,20,COLOR_GREEN,COLOR_BLACK);
+    drawString8x12(40,70, "nice", COLOR_GREEN, COLOR_BLACK);
+    drawString5x7(20,100, "nice but smaller",COLOR_GREEN, COLOR_BLACK);
+    state = 0;
+    break;
+  }
+}
 void ring_down(){ // frequency is lowered
   static long cycle = 0;
   buzzer_set_period(cycle);
@@ -44,49 +79,27 @@ void ring_down(){ // frequency is lowered
   }
 }
 
-void piano_man(){ //an attempt to create piano man
-  static char note_state = 0;
-  switch(note_state){
-  case 0:
-    buzzer_set_period(2040); //G
-    note_state++;             
-    break;
-  case 3:
-    buzzer_set_period(1818); //A
-    note_state++;
-    break;
-  case 4:
-    buzzer_set_period(2040); //G
-    note_state++;
-    break;
-  case 6:
-    buzzer_set_period(0);
-    note_state = 0;
-    break;
-  default:
-    note_state++;
-  }
-}
-
 void main_state()
 {
   switch(button_state){
   case 1:
-    green_on = 1; //green light is on while siren pitch is raised
-    red_on = 0;
-    ring_up();
+    clearScreen(COLOR_WHITE);
+    siren(); //green light is on while siren pitch is raised
     break;
   case 2:
-    green_on = 0; //red light is on while siren pitch is lowered
+    clearScreen(COLOR_BLUE);
+    buzzer_set_period(0);
+    green_on = 0; //red light is on while diamond is on
     red_on = 1;
-    ring_down();
+    diamond_font();
     break;
   case 3:
+    clearScreen(COLOR_BLACK);
     buzzer_set_period(0); //buzzer turned off
     dim(); //lights dimmed to 25%
-    dim();
     break;
   case 4:
+    clearScreen(COLOR_RED);
     buzzer_set_period(0); //buzzer turned off and both lights are turned on
     red_on = 1;
     green_on = 1;
