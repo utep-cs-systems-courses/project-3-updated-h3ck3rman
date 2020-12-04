@@ -28,7 +28,7 @@ void wdt_c_handler()
 
 void main()
 {
-  P1DIR |= LED_RED;		/**< Green led on when CPU on */		
+  P1DIR |= LED_RED;		/**< red led on when CPU on */		
   P1OUT |= LED_RED;
   configureClocks();
   lcd_init();
@@ -42,22 +42,22 @@ void main()
     if (redrawScreen) {
       switch(button_state){
       case 1:
-	clearScreen(COLOR_RED);
-	break;
+	diamond_font(COLOR_RED,COLOR_YELLOW);
+       	break;
       case 2:
-	clearScreen(COLOR_BLUE);
+	diamond_font(COLOR_RED,COLOR_BLUE);
 	break;
       case 3:
-	clearScreen(COLOR_GREEN);
+	diamond_font(COLOR_WHITE,COLOR_ORANGE);
 	break;
       case 4:
-	clearScreen(COLOR_WHITE);
+	diamond_font(COLOR_PURPLE,COLOR_CYAN);
 	break;
       }
       redrawScreen = 0;
     }
-    P1OUT &= ~LED_RED;	/* green off */
+    P1OUT &= ~LED_RED;	/* red off */
     or_sr(0x10);		/**< CPU OFF */
-    P1OUT |= LED_RED;		/* green on */
+    P1OUT |= LED_RED;		/* red on */
   }
 }
