@@ -23,15 +23,15 @@ main_state:
 	mov jt(r12), r0
 
 case1:
-	call #siren
+	call #dim
 	mov.b r12, 0(r1)
 	jmp exit
 case2:
-	call #siren2
+	call #dim
 	mov.b r12, 0(r1)
 	jmp exit
 case3:
-	call #diamond_font
+	call #dim
 	mov.b r12, 0(r1)
 	jmp exit
 case4:
