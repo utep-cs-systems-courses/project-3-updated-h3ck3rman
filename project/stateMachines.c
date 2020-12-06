@@ -82,7 +82,7 @@ void siren2(){
   }
 }
 
-void diamond_font(unsigned int color1, unsigned int color2){
+void diamond_font(u_int color1, u_int color2){
   drawDiamond(30,30,20, color1, color2);
   drawString8x12(40,70, "nice", color1, color2);
   drawString5x7(20,100, "nice but smaller", color1, color2);
