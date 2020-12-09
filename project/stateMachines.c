@@ -51,6 +51,8 @@ void ring_down(){ // frequency is lowered
 }
 
 void siren(){
+  green_on = 0;
+  clearScreen(COLOR_RED);
   static char state = 1;
   switch(state){
   case 0:
@@ -65,22 +67,24 @@ void siren(){
 }
 
 void siren2(){
-  static char state = 0;
+  clearScreen(COLOR_GREEN);
+  static char state = 1;
   switch(state){
   case 0:
-    red_on = 0;
     green_on = 1;
     buzzer_set_period(2500);
     state++;
     break;
   case 1:
-    red_on = 0;
-    green_on = 1;
+    green_on = 0;
     buzzer_set_period(0);
     state = 0;
     break;
   }
+  led_changed = 1;
+  led_update();
 }
+
 
 void diamond_font(u_int color1, u_int color2){
   drawDiamond(30,30,20, color1, color2);
@@ -89,6 +93,9 @@ void diamond_font(u_int color1, u_int color2){
 }
 
 void draw_states(){
+  green_on = 0;
+  buzzer_set_period(0);
+  clearScreen(COLOR_WHITE);
   static char d_state = 0;
   switch(d_state){
   case 0:
@@ -107,14 +114,14 @@ void draw_states(){
 }
 
 void turn_off(){
+  clearScreen(COLOR_BLACK);
   buzzer_set_period(0);
-  red_on = 0;
   green_on = 0;
   led_changed = 1;
   led_update();
 }
 
-
+/*
 void main_state()
 {
   switch(button_state){
@@ -146,3 +153,4 @@ void main_state()
   led_changed = 1;
   led_update();
 }
+*/

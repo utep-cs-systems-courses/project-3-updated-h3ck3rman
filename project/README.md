@@ -13,11 +13,10 @@ in the plugged in CPU.
 
 ## How It Works 
 There are 5 buttons you can use on the MSP-430:
-* Button 1: The green and red lights turn on in one frequency and turn off in
-a different frequency state, while a white background is displayed on the LCD.
-* Button 2: The red light light is turned on and a diamond is drawn on the
-display, changing colors every second with a blue background light.
-* Button 3: Both red and green lights are "dimmed", but the wdt interrupt is
-not working correctly and instead the ligths turn on and off every second.
-* Button 4: Both red and green lights are turned on normally while the
-background turns completely red.
+* Button 1: A diamond with 2 different fonts is drawn on the lcd and the lcd
+changes colors every half a second.
+* Button 2: Turns the lcd screen red and the siren rings at two frequencies
+that change every half a second.
+* Button 3: Turns the lcd screen green and the siren rings when green light is
+on, but does not ring if green light turns off.
+* Button 4: The lcd changes to black and all functions are turned off on the msp.

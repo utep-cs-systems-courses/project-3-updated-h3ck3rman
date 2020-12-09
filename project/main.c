@@ -20,7 +20,8 @@ void wdt_c_handler()
   static int secCount = 0;
 
   secCount ++;
-  if(secCount == 100){
+  if(secCount == 125){
+    main_state();
     secCount = 0;
     redrawScreen = 1;
   }
@@ -40,22 +41,12 @@ void main()
   clearScreen(COLOR_BLACK);             /* forever */
   while(1){
     if (redrawScreen) {
-      switch(button_state){
-      case 1:
-	diamond_font(COLOR_RED,COLOR_YELLOW);
-	break;
-      case 2:
-	diamond_font(COLOR_RED,COLOR_BLUE);
-	break;
-      case 3:
-	diamond_font(COLOR_WHITE,COLOR_ORANGE);
-	break;
-      case 4:
-        diamond_font(COLOR_PURPLE,COLOR_CYAN);
-	break;
+      if(is_positive(-2) == 0){
+	main_state();
       }
     redrawScreen = 0;
     }
+    
     P1OUT &= ~LED_RED;	/* red off */
     or_sr(0x10);		/**< CPU OFF */
     P1OUT |= LED_RED;		/* red on */

@@ -44,6 +44,5 @@ switch_interrupt_handler()
     button_state = 4;
   }
   switch_state_down = !switch_state_down;
-  main_state();
   led_update();
 }
