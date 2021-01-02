@@ -5,7 +5,7 @@
 jt:				;constant in flash memory
 	.word exit
 	.word case1
-	.word case2
+	.word exit
 	.word case3
 	.word case4
 
@@ -23,19 +23,15 @@ main_state:
 	mov jt(r12), r0		;goto jt[button_state]
 
 case1:
-	call #draw_states
+	call #button1
 	mov.b r12, 0(r1)	;led_changed value = draw_states
 	jmp exit		;goto exit
-case2:
-	call #siren
-	mov.b r12, 0(r1)	;led_changed value = siren
-	jmp exit		;goto exit
 case3:
-	call #siren2
+	call #button3
 	mov.b r12, 0(r1)	;led_changed value = siren2
 	jmp exit		;goto exit
 case4:
-	call #turn_off
+	call #button4
 	mov.b r12, 0(r1)	;led_changed value = turn_off
 	jmp exit		;goto exit
 exit:

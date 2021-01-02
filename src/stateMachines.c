@@ -4,9 +4,6 @@
 #include "buzzer.h"
 #include "lcdutils.h"
 #include "lcddraw.h"
-
-char button_state;
-
   
 void dim25(){ 
   static char state = 0;
@@ -26,6 +23,62 @@ void dim25(){
   case 3:
     green_on = 1;
     state = 0;
+    break;
+  }
+  led_changed = 1;
+  led_update();
+}
+
+void dim50(){ 
+  static char state = 0;
+  switch(state){
+  case 0:
+    green_on = 0;
+    state++;
+    break;
+  case 1:
+    green_on = 1;
+    state = 0;
+    break;
+  }
+  led_changed = 1;
+  led_update();
+}
+
+void dim75(){ 
+  static char state = 0;
+  switch(state){
+  case 0:
+    green_on = 1;
+    state++;
+    break;
+  case 1:
+    green_on = 1;
+    state++;
+    break;
+  case 2:
+    green_on = 1;
+    state++;
+    break;
+  case 3:
+    green_on = 0;
+    state = 0;
+    break;
+  }
+  led_changed = 1;
+  led_update();
+}
+
+void dim_change(int state){
+  switch(state){
+  case 0:
+    dim25();
+    break;
+  case 1:
+    dim50();
+    break;
+  case 2:
+    dim75();
     break;
   }
   led_changed = 1;
@@ -52,7 +105,6 @@ void ring_down(){ // frequency is lowered
 
 void siren(){
   green_on = 0;
-  clearScreen(COLOR_RED);
   static char state = 1;
   switch(state){
   case 0:
@@ -64,6 +116,8 @@ void siren(){
     state = 0;
     break;
   }
+  led_changed = 1;
+  led_update();
 }
 
 void siren2(){
@@ -85,72 +139,35 @@ void siren2(){
   led_update();
 }
 
-
 void diamond_font(u_int color1, u_int color2){
   drawDiamond(30,30,20, color1, color2);
   drawString8x12(40,70, "nice", color1, color2);
   drawString5x7(20,100, "nice but smaller", color1, color2);
 }
 
-void draw_states(){
-  green_on = 0;
-  buzzer_set_period(0);
-  clearScreen(COLOR_WHITE);
-  static char d_state = 0;
-  switch(d_state){
-  case 0:
-    diamond_font(COLOR_GREEN, COLOR_BLACK);
-    d_state++;
-    break;
-  case 1:
-    diamond_font(COLOR_RED, COLOR_NAVY);
-    d_state++;
-    break;
-  case 2:
-    diamond_font(COLOR_MAGENTA, COLOR_BROWN);
-    d_state = 0;
-    break;
-  }
-}
 
 void turn_off(){
-  clearScreen(COLOR_BLACK);
   buzzer_set_period(0);
   green_on = 0;
   led_changed = 1;
   led_update();
 }
 
-/*
-void main_state()
-{
-  switch(button_state){
-  case 1:
-    green_on = 0;
-    clearScreen(COLOR_WHITE);
-    draw_states();
-    siren();
-    break;
-  case 2:
-    green_on = 0;
-    buzzer_set_period(0);
-    clearScreen(COLOR_RED);
-    dim25();
-    break;
-  case 3:
-    green_on = 1;
-    clearScreen(COLOR_GREEN);
-    siren2();
-    break;
-  case 4:
-    clearScreen(COLOR_BLACK);
-    turn_off();
-    break;
-  default:
-    clearScreen(COLOR_NAVY);
-    drawString8x12(50,50,"ready",COLOR_NAVY,COLOR_WHITE);
-  }
+void button1(){
+  green_on = 0;
+  siren();
   led_changed = 1;
   led_update();
 }
-*/
+
+void button3(){
+  siren2();
+  led_changed = 1;
+  led_update();
+}
+
+void button4(){
+  turn_off();
+  led_changed = 1;
+  led_update();
+}
